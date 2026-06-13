@@ -250,7 +250,10 @@ def _serialize(launcher, use_pycuerun):
     if not launcher.get("nomail"):
         sub_element(root, "email", "%s@%s" % (user,
                                               outline.config.get("outline", "domain")))
-    sub_element(root, "uid", str(outline.util.get_uid()))
+    
+    uid = outline.util.get_uid()
+    if uid is not None:
+        sub_element(root, "uid", str(uid))
 
     j = Et.SubElement(root, "job", {"name": ol.get_name()})
     sub_element(j, "paused", str(launcher.get("pause")))
